@@ -1,11 +1,7 @@
 import React from 'react';
 import './App.css';
-import { HomePage } from './pages/homePage/';
-import { Navbar } from './components/navbar'
-
-import "./App.css"
-import { Button } from './components/button';
 import { Bubble } from './components/bubble';
+import { Navbar } from './components/navbar'
 
 
 function App() {
@@ -17,9 +13,9 @@ function App() {
         <p>Up or Down?</p>
       </div>
       <div className='App-bubbles'>
-        <Bubble ticker="BTC" sentiment="30%" />
-        <Bubble ticker="ETH" sentiment="80%" />
-        <Bubble ticker="LTC" sentiment="70%" />
+        <Bubble ticker="BTC" sentiment="70" bubbleColor='green' />
+        <Bubble ticker="ETH" sentiment="50" bubbleColor='green' />
+        <Bubble ticker="LTC" sentiment="5" bubbleColor='red' />
       </div>
     </div>
   );
