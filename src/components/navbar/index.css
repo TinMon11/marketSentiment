@@ -1,0 +1,83 @@
+/* styles for navbar */
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+    width: 90%;
+
+    border-bottom: 1px solid black;
+}
+
+.navbar-brand {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.navbar-brand p {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.navbar-brand-logo {
+    max-height: 80px;
+}
+
+.navbar-loginbutton {
+    cursor: pointer;
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #ffffff;
+    z-index: 1;
+    background: rgb(169, 0, 221);
+    background: linear-gradient(
+      77deg,
+      rgba(169, 0, 221, 1) 0%,
+      rgba(176, 0, 213, 1) 44%,
+      rgba(250, 0, 126, 1) 80%,
+      rgba(255, 0, 120, 1) 100%
+    );
+    position: relative;
+    font-weight: 1000;
+    font-size: 15px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms;
+    overflow: hidden;
+}
+
+.navbar-loginbutton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background: rgb(255, 0, 126);
+    background: linear-gradient(
+      77deg,
+      rgba(255, 0, 120, 1) 0%
+      rgba(250, 0, 126, 1) 44%,
+      rgba(176, 0, 213, 1) 88%,
+      rgba(169, 0, 221, 1) 100%,
+    );
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+    transition: all 250ms
+}
+
+.navbar-loginbutton:hover {
+    color: #e8e8e8;
+}
+
+.navbar-loginbutton:hover::before {
+    width: 100%;
+}

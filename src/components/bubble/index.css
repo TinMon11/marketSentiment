@@ -1,0 +1,76 @@
+.bubble-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.bubble-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.bubble-circle {
+    width: 200px;
+    height: 200px;
+    border: 3px solid black;
+    padding: 115px;
+    margin-bottom: 5px;
+    border-radius: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+
+}
+
+.bubble-circle::before {
+    position: absolute;
+    content: '';
+    width: 200%;
+    height: 200%;
+    background-color: white;
+    top: 100%;
+    border-radius: 55%;
+    animation: wave 12s infinite linear;
+}
+
+.bubble-circle::after {
+    position: absolute;
+    content: '';
+    width: 204%;
+    height: 204%;
+    background-color: #59e954;
+    top: 35%;
+    border-radius: 45%;
+    animation: wave 8s infinite linear;
+    animation-delay: 0.5s;
+}
+
+@keyframes wave {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.bubble-circle-ticker {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.bubble-circle-sentiment {
+    z-index: 1;
+    font-size: 100px;
+    font-weight: bolder;
+}
