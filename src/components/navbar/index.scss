@@ -1,5 +1,17 @@
 /* styles for navbar */
 
+@mixin mobile {
+    @media screen and (max-width:480px) {
+        @content 
+    }
+}
+
+@mixin tablet {
+    @media screen and (max-width:768px) {
+        @content 
+    }
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -7,7 +19,6 @@
     justify-content: space-between;
     height: 80px;
     width: 90%;
-
     border-bottom: 1px solid black;
 }
 
@@ -16,16 +27,22 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: 20px;
+    gap: 30px;
 }
 
 .navbar-brand p {
     font-size: 40px;
     font-weight: 600;
+    @include tablet {
+        display: none;
+    }
 }
 
 .navbar-brand-logo {
     max-height: 80px;
+    @include tablet {
+        max-height: 60px;
+    }
 }
 
 .navbar-loginbutton {

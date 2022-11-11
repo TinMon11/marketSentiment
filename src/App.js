@@ -5,6 +5,7 @@ import { Navbar } from './components/navbar'
 
 
 function App() {
+
   return (
     <div className="App">
       <Navbar />
@@ -13,9 +14,9 @@ function App() {
         <p>Up or Down?</p>
       </div>
       <div className='App-bubbles'>
-        <Bubble ticker="BTC" sentiment="70" bubbleColor='green' />
-        <Bubble ticker="ETH" sentiment="50" bubbleColor='green' />
-        <Bubble ticker="LTC" sentiment="5" bubbleColor='red' />
+        <Bubble ticker="BTC" sentiment="70"/>
+        <Bubble ticker="ETH" sentiment="50"/>
+        <Bubble ticker="LTC" sentiment="48"/>
       </div>
     </div>
   );
