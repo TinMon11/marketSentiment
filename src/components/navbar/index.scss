@@ -2,13 +2,13 @@
 
 @mixin mobile {
     @media screen and (max-width:480px) {
-        @content 
+        @content
     }
 }
 
 @mixin tablet {
     @media screen and (max-width:768px) {
-        @content 
+        @content
     }
 }
 
@@ -33,6 +33,7 @@
 .navbar-brand p {
     font-size: 40px;
     font-weight: 600;
+
     @include tablet {
         display: none;
     }
@@ -40,6 +41,7 @@
 
 .navbar-brand-logo {
     max-height: 80px;
+
     @include tablet {
         max-height: 60px;
     }
@@ -53,13 +55,11 @@
     color: #ffffff;
     z-index: 1;
     background: rgb(169, 0, 221);
-    background: linear-gradient(
-      77deg,
-      rgba(169, 0, 221, 1) 0%,
-      rgba(176, 0, 213, 1) 44%,
-      rgba(250, 0, 126, 1) 80%,
-      rgba(255, 0, 120, 1) 100%
-    );
+    background: linear-gradient(77deg,
+            rgba(169, 0, 221, 1) 0%,
+            rgba(176, 0, 213, 1) 44%,
+            rgba(250, 0, 126, 1) 80%,
+            rgba(255, 0, 120, 1) 100%);
     position: relative;
     font-weight: 1000;
     font-size: 15px;
@@ -78,13 +78,11 @@
     width: 0;
     border-radius: 15px;
     background: rgb(255, 0, 126);
-    background: linear-gradient(
-      77deg,
-      rgba(255, 0, 120, 1) 0%
-      rgba(250, 0, 126, 1) 44%,
-      rgba(176, 0, 213, 1) 88%,
-      rgba(169, 0, 221, 1) 100%,
-    );
+    background: linear-gradient(77deg,
+            rgba(255, 0, 120, 1) 0% rgba(250, 0, 126, 1) 44%,
+            rgba(176, 0, 213, 1) 88%,
+            rgba(169, 0, 221, 1) 100%,
+        );
     z-index: -1;
     -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
     box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
@@ -97,4 +95,17 @@
 
 .navbar-loginbutton:hover::before {
     width: 100%;
+}
+
+.navbar-loginbutton:disabled {
+    cursor: not-allowed
+}
+
+.navbar-connection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import './App.css';
 import { Bubble } from './components/bubble';
 import { Navbar } from './components/navbar'
+import swal from 'sweetalert';
+
 
 
 function App() {
@@ -14,9 +16,9 @@ function App() {
         <p>Up or Down?</p>
       </div>
       <div className='App-bubbles'>
-        <Bubble ticker="BTC" sentiment="70"/>
-        <Bubble ticker="ETH" sentiment="50"/>
-        <Bubble ticker="LTC" sentiment="48"/>
+        <Bubble ticker="XRP" sentiment="45" />
+        <Bubble ticker="ETH" sentiment="30" />
+        <Bubble ticker="LTC" sentiment="86" />
       </div>
     </div>
   );
