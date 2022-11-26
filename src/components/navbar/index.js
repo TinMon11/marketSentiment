@@ -1,25 +1,11 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useContext } from 'react'
 import LogoImage from "../../assets/images/ewol_logo.png";
 import "./index.scss"
-import swal from 'sweetalert';
-import { ethers } from "ethers";
-
-
+import AppContext from '../../context/AppContext'
 
 export const Navbar = () => {
 
-  const [loginMetaMask, setloginMetaMask] = useState(false)
-  const [user, setUser] = useState()
-
- const onHandleConnect = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    await provider.send("eth_requestAccounts", []);
-    const signer = provider.getSigner()
-    const signerAddress = await signer.getAddress()
-    setUser(signerAddress.substring(0,4)+"..."+signerAddress.substring(36))
-    setloginMetaMask(!loginMetaMask)
-  }
+  const { loginMetaMask, user, conectMetamask } = useContext(AppContext)
 
   return (
     <div className='navbar'>
@@ -28,10 +14,13 @@ export const Navbar = () => {
         <p>Market Sentiment App</p>
       </div>
       <div className='navbar-connection'>
-        <p>{user}</p>
-        <button onClick={onHandleConnect} className='navbar-loginbutton' disabled={loginMetaMask}>
-          {loginMetaMask ? "Connected" : "Connect Metamask"}
-        </button>
+        {loginMetaMask ?
+          <p>Wallet Connected: {user}</p>
+          :
+          <button onClick={conectMetamask} className='navbar-loginbutton' disabled={loginMetaMask}>
+            Connect Metamask
+          </button>
+        }
       </div>
     </div>
   )

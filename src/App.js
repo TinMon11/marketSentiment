@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import { Bubble } from './components/bubble';
 import { Navbar } from './components/navbar'
-import swal from 'sweetalert';
-
+import AppContext from './context/AppContext';
 
 
 function App() {
+
+  const { loginMetaMask } = useContext(AppContext)
 
   return (
     <div className="App">
@@ -15,11 +16,19 @@ function App() {
         <p>Where do you think these Tokens are going?</p>
         <p>Up or Down?</p>
       </div>
-      <div className='App-bubbles'>
-        <Bubble ticker="XRP" sentiment="45" />
-        <Bubble ticker="ETH" sentiment="30" />
-        <Bubble ticker="LTC" sentiment="86" />
-      </div>
+
+      {!loginMetaMask ?
+        <div className='App-subtitle'>
+          PLEASE LOGIN TO METAMASKT TO VIEW MARKET SENTIMENT
+        </div>
+        :
+        <div className='App-bubbles'>
+          <Bubble ticker="BTC" />
+          <Bubble ticker="ETH" />
+          <Bubble ticker="SOL" />
+        </div>
+
+      }
     </div>
   );
 }
