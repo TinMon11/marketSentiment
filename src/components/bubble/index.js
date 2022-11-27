@@ -36,12 +36,6 @@ export const Bubble = (props) => {
 
     getMarketSentiment(ticker);
 
-    window.ethereum.on('_tickerUpdated', (_tickerName) => {
-        console.log(_tickerName)
-        window.location.reload()
-    });
-
-
     return (
         <div className='bubble-modal' >
             <div className='bubble-circle' style={bubbleCircleStyle}>
