@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ethers } from "ethers";
 import AppContext from './AppContext';
-const {abi} = require('../data/abi/MarketSentiment.json')
+const { abi } = require('../data/abi/MarketSentiment.json')
 
 const contractAddr = '0xd17456c08328373d96C2Ce91CB6a0A8a9ba4Cc97'
 let ethProvider;
@@ -11,10 +11,20 @@ let marketSentimentInstance = new ethers.Contract(contractAddr,
     abi)
 
 const AppContextProvider = ({ children }) => {
-    
+
     const [loginMetaMask, setloginMetaMask] = useState()
     const [user, setUser] = useState()
-    
+    const [marketInstance, setmarketInstance] = useState()
+
+
+    // Creacion de Instancia para renderizar los tickers % sin estar logueado
+    useEffect(() => {
+            ethProvider = new ethers.providers.Web3Provider(window.ethereum)
+            ethSigner = ethProvider.getSigner()
+            marketSentimentInstance = new ethers.Contract(contractAddr,
+                abi, ethSigner)
+            setmarketInstance(marketSentimentInstance)
+    }, [])
 
     async function conectMetamask() {
 
@@ -26,7 +36,7 @@ const AppContextProvider = ({ children }) => {
     }
 
     window.ethereum.on('accountsChanged', handleAccountsChanged);
-    
+
     async function handleAccountsChanged(accounts) {
         if (accounts.length === 0) {
             console.log('Please connect to MetaMask.');
@@ -48,8 +58,8 @@ const AppContextProvider = ({ children }) => {
         }
     }
 
-        return (
-        <AppContext.Provider value={{ loginMetaMask, setloginMetaMask, user, setUser, conectMetamask, marketSentimentInstance}}>
+    return (
+        <AppContext.Provider value={{ loginMetaMask, setloginMetaMask, user, setUser, conectMetamask, marketSentimentInstance, marketInstance }}>
             {children}
         </AppContext.Provider>
     )

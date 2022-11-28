@@ -11,7 +11,7 @@
     border: 3px solid black;
     width: 250px;
     height: 250px;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
@@ -24,9 +24,10 @@
     width: 180%;
     height: 190%;
     transform-origin: 50% 50%;
-    border-radius: 65% 56%;
-    animation: spin 8s infinite linear;
+    border-radius: 55% 60%;
+    animation: spin 5s infinite linear;
   }
+
 
 @keyframes spin {
     100% {
@@ -57,28 +58,5 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
-
-/* .bubble-circle::after {
-    position: absolute;
-    content: '';
-    width: 204%;
-    height: 204%;
-    background-color: #59e954;
-    top: 90%;
-    border-radius: 45%;
-    animation: wave 8s infinite linear;
-    animation-delay: 0.5s;
-}
-
-@keyframes wave {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-} */
-

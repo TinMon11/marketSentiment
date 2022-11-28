@@ -42,3 +42,7 @@
   justify-content: center;
   gap: 80px;
 }
+
+.App-login-message {
+  font-size: 2em;
+}

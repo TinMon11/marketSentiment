@@ -9,10 +9,9 @@ import "./index.css"
 export const Bubble = (props) => {
 
     const [sentimentText, setsentimentText] = useState()
-
     const ticker = props.ticker;
 
-    const { loginMetaMask, marketSentimentInstance } = useContext(AppContext)
+    const { loginMetaMask, marketSentimentInstance, marketInstance } = useContext(AppContext)
 
     const bubbleStyle = {
         marginTop: `${100 - sentimentText}%`,
@@ -22,11 +21,11 @@ export const Bubble = (props) => {
     const bubbleCircleStyle = {
         boxShadow: `0 0 30px ${(sentimentText >= 50 ? "green" : "red")}`
     }
-
+    
     const getMarketSentiment = async (ticker) => {
 
-        if (!marketSentimentInstance) { return null }
-        const [_votesFor, _votesAgainst, _totalVotes] = await marketSentimentInstance.countVotes(ticker);
+        if (!marketInstance) { return null }
+        const [_votesFor, _votesAgainst, _totalVotes] = await marketInstance.countVotes(ticker);
 
         // Only computes and displays sentiment if votes are more than zero, so
         if (_totalVotes > 0) {
@@ -35,7 +34,6 @@ export const Bubble = (props) => {
         }
     }
 
-
     getMarketSentiment(ticker)
 
     const voteTicker = async (ticker, vote) => {
@@ -43,7 +41,6 @@ export const Bubble = (props) => {
         try {
             const voteTx = await marketSentimentInstance.voteTicker(ticker, vote)
         } catch (err) {
-            //console.log({...err});
             const reason = err.reason.replace("execution reverted: ", "");
             if (reason == "You have already voted this token") {
                 swal({

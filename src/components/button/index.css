@@ -49,3 +49,8 @@
     transform: translate(0px, 2px);
     border-bottom: 1px solid #ee2d0e;
 }
+
+button:disabled {
+    background-color: grey;
+    border-bottom: 5px solid black;
+}

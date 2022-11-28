@@ -7,6 +7,8 @@ import AppContext from './context/AppContext';
 
 function App() {
 
+  const { loginMetaMask } = useContext(AppContext)
+
   return (
     <div className="App">
       <Navbar />
@@ -20,6 +22,12 @@ function App() {
         <Bubble ticker="ETH" />
         <Bubble ticker="SOL" />
       </div>
+      {!loginMetaMask &&
+        <div className='App-login-message'>
+          <p>Please Login to Vote</p>
+        </div>
+      }
+
     </div>
   );
 }
