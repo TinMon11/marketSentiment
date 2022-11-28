@@ -1,6 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AppContext from '../../context/AppContext'
 import { Button } from '../button'
+import swal from 'sweetalert';
+
 import "./index.css"
 
 
@@ -21,7 +23,6 @@ export const Bubble = (props) => {
         boxShadow: `0 0 30px ${(sentimentText >= 50 ? "green" : "red")}`
     }
 
-
     const getMarketSentiment = async (ticker) => {
 
         if (!marketSentimentInstance) { return null }
@@ -34,7 +35,26 @@ export const Bubble = (props) => {
         }
     }
 
-    getMarketSentiment(ticker);
+
+    getMarketSentiment(ticker)
+
+    const voteTicker = async (ticker, vote) => {
+        if (!marketSentimentInstance) { return null }
+        try {
+            const voteTx = await marketSentimentInstance.voteTicker(ticker, vote)
+        } catch (err) {
+            //console.log({...err});
+            const reason = err.reason.replace("execution reverted: ", "");
+            if (reason == "You have already voted this token") {
+                swal({
+                    title: "Error on voting",
+                    text: "You have already voted this ticker",
+                    icon: "warning",
+                    button: "Return"
+                  })
+            }
+        }
+    }
 
     return (
         <div className='bubble-modal' >
@@ -43,8 +63,8 @@ export const Bubble = (props) => {
                 <div className='bubble-circle-sentiment'>{sentimentText}%</div>
             </div>
             <div className='bubble-buttons'>
-                <Button className="buttonUp" disabled={!loginMetaMask} onClick={() => marketSentimentInstance.voteTicker(ticker, true)}>UP</Button>
-                <Button className="buttonDown" disabled={!loginMetaMask} onClick={() => marketSentimentInstance.voteTicker(ticker, false)}>DOWN</Button>
+                <Button className="buttonUp" disabled={!loginMetaMask} onClick={() => voteTicker(ticker, true)}>UP</Button>
+                <Button className="buttonDown" disabled={!loginMetaMask} onClick={() => voteTicker(ticker, false)}>DOWN</Button>
             </div>
             <p className='bubble-circle-ticker'>{ticker}</p>
         </div>

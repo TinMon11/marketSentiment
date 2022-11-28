@@ -14,28 +14,19 @@ const AppContextProvider = ({ children }) => {
     
     const [loginMetaMask, setloginMetaMask] = useState()
     const [user, setUser] = useState()
+    
 
-    useEffect(() => {
-        window.localStorage.setItem("user_address", JSON.stringify(user));
-      }, [user, loginMetaMask]);
+    async function conectMetamask() {
 
-
-    function conectMetamask() {
-        const connectPromise = window.ethereum
-            .request({ method: 'eth_requestAccounts' })
-            .then(handleAccountsChanged)
-            .catch((err) => {
-                if (err.code === 4001) {
-                    console.log('Please connect to MetaMask.');
-                } else {
-                    console.error(err);
-                }
-            });
-        console.log('connectPromise', connectPromise)
-        return connectPromise
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const account = ethers.utils.getAddress(accounts[0])
+        setUser(account.substring(0, 5) + "..." + account.substring(35))
+        setloginMetaMask(!loginMetaMask)
+        handleAccountsChanged(accounts)
     }
 
     window.ethereum.on('accountsChanged', handleAccountsChanged);
+    
     async function handleAccountsChanged(accounts) {
         if (accounts.length === 0) {
             console.log('Please connect to MetaMask.');
@@ -56,8 +47,8 @@ const AppContextProvider = ({ children }) => {
             }
         }
     }
-    
-    return (
+
+        return (
         <AppContext.Provider value={{ loginMetaMask, setloginMetaMask, user, setUser, conectMetamask, marketSentimentInstance}}>
             {children}
         </AppContext.Provider>
