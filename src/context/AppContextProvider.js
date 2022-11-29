@@ -7,6 +7,7 @@ const contractAddr = '0xd17456c08328373d96C2Ce91CB6a0A8a9ba4Cc97'
 let ethProvider;
 let ethSigner;
 let ethAccount;
+let actualNetwork;
 let marketSentimentInstance = new ethers.Contract(contractAddr,
     abi)
 
@@ -15,15 +16,50 @@ const AppContextProvider = ({ children }) => {
     const [loginMetaMask, setloginMetaMask] = useState()
     const [user, setUser] = useState()
     const [marketInstance, setmarketInstance] = useState()
+    const [network, setNetwork] = useState()
 
 
     // Creacion de Instancia para renderizar los tickers % sin estar logueado
     useEffect(() => {
+        async function init() {
             ethProvider = new ethers.providers.Web3Provider(window.ethereum)
             ethSigner = ethProvider.getSigner()
             marketSentimentInstance = new ethers.Contract(contractAddr,
                 abi, ethSigner)
             setmarketInstance(marketSentimentInstance)
+            actualNetwork = await ethProvider.getNetwork()
+            setNetwork(actualNetwork.chainId)
+        }
+        init();
+
+        if (network !== 80001) {
+            try {
+                window.ethereum.request({
+                    method: "wallet_switchEthereumChain",
+                    params: [{ chainId: "0x13881" }],
+                });
+                actualNetwork = ethProvider.getNetwork()
+                setNetwork(actualNetwork.chainId)
+            } catch (err) {
+                if (err == 4902) {
+                    window.ethereum.request({
+                        method: "wallet_addEthereumChain",
+                        params: [
+                            {
+                                chainId: "0x13881",
+                                rpcUrl: "https://rpc-mumbai.maticvigil.com",
+                                chainName: "Polygon Testnet Mumbai",
+                                nativeCurrency: {
+                                    name: "tMATIC",
+                                    symbol: "tMATIC", // 2-6 characters long
+                                    decimals: 18,
+                                },
+                            },
+                        ],
+                    });
+                }
+            }
+        }
     }, [])
 
     async function conectMetamask() {
@@ -51,6 +87,8 @@ const AppContextProvider = ({ children }) => {
             window.ethSigner = ethSigner
             setUser(ethAccount.substring(0, 5) + "..." + ethAccount.substring(35))
             setloginMetaMask(!loginMetaMask)
+            actualNetwork = await ethProvider.getNetwork()
+            setNetwork(actualNetwork.chainId)
             return {
                 account: ethAccount,
                 network: await ethProvider.getNetwork()
@@ -59,7 +97,7 @@ const AppContextProvider = ({ children }) => {
     }
 
     return (
-        <AppContext.Provider value={{ loginMetaMask, setloginMetaMask, user, setUser, conectMetamask, marketSentimentInstance, marketInstance }}>
+        <AppContext.Provider value={{ loginMetaMask, setloginMetaMask, user, setUser, conectMetamask, marketSentimentInstance, marketInstance, network }}>
             {children}
         </AppContext.Provider>
     )

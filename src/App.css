@@ -45,4 +45,18 @@
 
 .App-login-message {
   font-size: 2em;
+  text-align: center;
+}
+
+.App-message h1 {
+  background-color: blue;
+  padding: 15px;
+  border-radius: 40px;
+  text-align: center;
+  font-size: 3.5em;
+}
+
+.App-message h2 {
+  text-align: center;
+  font-size: 2em;
 }

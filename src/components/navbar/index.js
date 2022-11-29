@@ -5,7 +5,7 @@ import AppContext from '../../context/AppContext'
 
 export const Navbar = () => {
 
-  const { loginMetaMask, user, conectMetamask } = useContext(AppContext)
+  const { loginMetaMask, user, conectMetamask, network } = useContext(AppContext)
 
   return (
     <div className='navbar'>
@@ -14,13 +14,19 @@ export const Navbar = () => {
         <p>Market Sentiment App</p>
       </div>
       <div className='navbar-connection'>
-        {loginMetaMask ?
-          <p>Wallet Connected: {user}</p>
-          :
-          <button onClick={conectMetamask} className='navbar-loginbutton' disabled={loginMetaMask}>
-            Connect Metamask
-          </button>
+        {network == 80001 ?
+          <>
+            {loginMetaMask ?
+              <p>Wallet Connected: {user}</p>
+              :
+              <button onClick={conectMetamask} className='navbar-loginbutton'>
+                Connect Metamask
+              </button>
+            }
+          </> :
+          <p>Change to Mumbai Network</p>
         }
+
       </div>
     </div>
   )
